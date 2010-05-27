@@ -1,6 +1,5 @@
-grant codeBase "file:/~/MC823/mc823-1s2010-rmi/" {
 grant {
   permission java.security.AllPermission;
-  permission java.net.SocketPermission "localhost: 1024-65535", "connect, accept, listen";
+  permission java.net.SocketPermission "localhost:1024-65535", "connect, accept, listen, resolve";
   permission java.net.SocketPermission "*:80", "connect";
 };
