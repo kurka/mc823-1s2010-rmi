@@ -81,8 +81,9 @@ public class Pi implements Task<BigDecimal>, Serializable {
         BigDecimal arctan1_239 = arctan(239, scale);
         BigDecimal pi = arctan1_5.multiply(FOUR).subtract(
                                   arctan1_239).multiply(FOUR);
-        return pi.setScale(digits, 
-                           BigDecimal.ROUND_HALF_UP);
+        return BigDecimal.valueOf(2*digits);
+        //return pi.setScale(digits, 
+        //                   BigDecimal.ROUND_HALF_UP);
     }
     /**
      * Compute the value, in radians, of the arctangent of 
