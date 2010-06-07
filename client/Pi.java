@@ -32,7 +32,7 @@ public class Pi implements Task<String>, Serializable {
         /* Processar pedido aqui */
         String resultado = new String();
         long end = System.nanoTime();
-        resultado = String.format("SERVERTIME\t%.6f", (end-start)/1000000000F);
+        resultado = resultado + String.format("SERVERTIME\t%.6f", (end-start)/1000000000F);
         return resultado;
     }
 }
