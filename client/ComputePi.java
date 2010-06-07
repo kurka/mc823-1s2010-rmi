@@ -14,7 +14,14 @@ public class ComputePi {
             String name = "Compute";
             Registry registry = LocateRegistry.getRegistry(args[0]);
             Compute comp = (Compute) registry.lookup(name);
-            Pi task = new Pi(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+            int opcao = -1, id = -1, nota = -1;
+            if (args.length >= 2)
+              opcao = Integer.parseInt(args[1]);
+            if (args.length >= 3)
+              id = Integer.parseInt(args[2]);
+            if (args.length >= 4)
+              nota = Integer.parseInt(args[3]);
+            Pi task = new Pi(opcao, id, nota);
 
             /* Marca inicio do tempo do cliente aqui */
             long start = System.nanoTime(); 
