@@ -25,7 +25,7 @@ public class Cliente {
   
 		if (args.length < 2 || args.length > 4)
 		{
-			fprintf(stderr, "Modo de usar: ./client [opcao] [id] [nota]\n");
+			System.err.println("Modo de usar: ./client [opcao] [id] [nota]");
 			exit(1);
 		}
   
@@ -36,10 +36,6 @@ public class Cliente {
 			id = Integer.parseInt(args[2]);
 		if (args.lenght > 3)
 			nota = Integer.parseInt(args[3]);
-  
-		/* Limpar buffers */
-		//cleanbuffer(in_buffer);
-		//cleanbuffer(out_buffer);
   
   
 		if (opcao[0] == -1)
@@ -90,4 +86,32 @@ public class Cliente {
   
 		return(0);
 	}    
+
+	
+	private void printmenu()
+	{
+		System.out.println("[%d] Listar todas as informacoes de todos os filmes", REQUEST_ALL);
+		System.out.println("[%d] Listar filme por id", REQUEST_ONE);
+		System.out.println("[%d] Listar todos os filmes por titulo", REQUEST_TITLES);
+		System.out.println("[%d] Obter sinopse pelo id", REQUEST_PLOT);
+		System.out.println("[%d] Dar nota para filme", REQUEST_VOTE);
+		System.out.println("[%d] Obter nota media e numero de clientes", REQUEST_RATE);
+		System.out.println("Qualquer outra opcao: sair do programa");
+		System.out.println("Digite a opcao desejada.");
+	}
+	
+	private int getint(String msg)
+	{
+		int r = -1;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));  
+		
+		while (r <= 0)
+		{
+			String input = reader.readLine();  
+			r = Integer.parseInt(input);  
+			System.out.println(msg);
+		}
+		return r;
+	}
+
 }
