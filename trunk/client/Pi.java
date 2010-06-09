@@ -4,7 +4,7 @@ import compute.Task;
 import java.util.Formatter;
 import java.io.Serializable;
 import java.sql.*;
-import com.mysql.jdbc.Driver;
+//import com.mysql.jdbc.Driver;
 
 public class Pi implements Task<String>, Serializable {
 
@@ -42,14 +42,20 @@ public class Pi implements Task<String>, Serializable {
            {
                 String userName = "rodrigo_yasuda";
    		String password = "teste123";
-   		String url = "jdbc:mysql://mysql.tolstenko.net/rodrigo_yasuda?user=" + userName + "&password=" + password;
+   		String url = "jdbc:mysql://mysql.tolstenko.net:3306/rodrigo_yasuda?useUnicode=yes&characterEncoding=UTF-8&user=" + userName + "&password=" + password;
                 System.out.println("aqui");
    		Class.forName ("com.mysql.jdbc.Driver").newInstance();
                 System.out.println("aqui2");
-   		conn = DriverManager.getConnection(url);
+   		//conn = DriverManager.getConnection("jdbc:mysql://localhost/rodrigo_yasuda", "rodrigo_yasuda", "teste123");
+                conn = DriverManager.getConnection(url);
                 System.out.println("aqui3");
+                System.out.println("Connected to the database");
+                conn.close();
+                System.out.println("Disconnected from database");
 
-               System.out.println ("Database connection established");
+
+
+               //System.out.println ("Database connection established");
            }
            catch (Exception e)
            {
@@ -73,7 +79,9 @@ public class Pi implements Task<String>, Serializable {
 
         /* Termino do tempo do servidor aqui */
         long end = System.nanoTime();
-        resultado = resultado + String.format("SERVERTIME\t%.6f", (end-start)/1000000000F);
+        double dif = (end - start)/1000000000F;
+        resultado = resultado + "SERVERTIME\t" + dif;
+        System.out.println(resultado);
         return resultado;
     }
 }
