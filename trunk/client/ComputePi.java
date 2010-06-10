@@ -34,7 +34,8 @@ public class ComputePi {
             /* Imprime resultado */
             System.out.println(pi);
             /* Imprime tempo do cliente */
-            System.out.println("TOTALTIME\t" + (end-start)/1000000000F);
+            double dif = (end-start)/1000000000F;
+            System.out.println("TOTALTIME\t" + dif);
 
         } catch (Exception e) {
             System.err.println("ComputePi exception:");
