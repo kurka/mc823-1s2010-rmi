@@ -6,9 +6,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import compute.Compute;
 import compute.Task;
-import java.sql.*;
-
-import com.mysql.jdbc.Driver;
 
 public class ComputeEngine implements Compute {
 
