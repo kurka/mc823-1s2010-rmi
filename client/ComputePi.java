@@ -4,9 +4,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.*;
 import compute.Compute;
-import java.sql.*;
-
-import com.mysql.jdbc.Driver;
 
 public class ComputePi {
     public static void main(String args[]) {
