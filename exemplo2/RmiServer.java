@@ -20,12 +20,43 @@ implements cinemaInterface
     
     public String TodosDados()
     {
+      String resposta = "";
       Connection conn = null;
       try {
         /* Conexao com servidor MySQL */
         Class.forName ("com.mysql.jdbc.Driver").newInstance();
         conn = DriverManager.getConnection(url);
-        //System.out.println("Connected to the database");
+        
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        try
+        {
+          rs = stmt.executeQuery("SELECT * from movies");
+          while(rs.next()){
+            resposta += "\n\n********** FILME ID " + rs.getString("id") + " *********";
+            resposta += "\nTitulo: " + rs.getString("title");
+            resposta += "\nSinopse: " + rs.getString("plot");
+            resposta += "\nDiretor: " + rs.getString("director");
+            resposta += "\nEscritor: " + rs.getString("writer");
+            resposta += "\nData de Estreia: " + rs.getString("releasedate");
+            resposta += "\nData de Estreia no Brasil: " + rs.getString("releasedatebr");
+            resposta += "\nDuracao: " + rs.getString("runtime") + " minutos";
+            resposta += "\nVotos: " + rs.getString("ratevotes");
+            if (rs.getInt("ratevotes") > 0)
+            {
+              double media = rs.getInt("ratesum") / (double)rs.getInt("ratevotes");
+              resposta += "\nNota media: " + media;
+            }
+            else
+              resposta += "\nNota media: 0.0";
+            resposta += "\nSessoes: " + rs.getString("session");
+          }//end while loop
+
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
         conn.close();
         //System.out.println("Disconnected from database");
       }
@@ -42,7 +73,7 @@ implements cinemaInterface
           } catch (Exception e) { /* ignore close errors */ }
         }
       }
-      return "bodega";
+      return resposta + "\n";
     }
 
     public String consulta(int opcao, int id, int nota) throws RemoteException
@@ -58,7 +89,6 @@ implements cinemaInterface
       {
         case 1:
           resposta = TodosDados();
-          resposta = "Todos filmes" + "\n";
           break;
         default:
           resposta = "Opcao incorreta";
@@ -69,7 +99,7 @@ implements cinemaInterface
       /* Termino do tempo do servidor aqui */
       long end = System.nanoTime();
       double dif = (end - start)/1000000000F;
-      resposta = resposta + "SERVERTIME\t" + dif + "\n";
+      resposta += "\nSERVERTIME\t" + dif + "\n";
       System.out.println(resposta);
     
       return resposta;
