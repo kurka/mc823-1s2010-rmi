@@ -22,7 +22,7 @@ public class Cliente {
         }
         try {
 			int nota = -1, id = 0, opcao = -1;
-			CinemaInterface servidor;
+			cinemaInterface servidor;
 			Registry registry;
 			String serverAddress;
 			int serverPort= PORTA;
@@ -89,7 +89,7 @@ public class Cliente {
 						);
 				// encontra o objeto remoto
 				servidor=
-					(CinemaInterface)(registry.lookup("Servidor"));
+					(cinemaInterface)(registry.lookup("Servidor"));
 				// envia e processa requisicao
 				retorno = servidor.consulta(opcao, id, nota);
 			}
