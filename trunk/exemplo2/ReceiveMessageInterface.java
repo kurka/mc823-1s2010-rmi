@@ -3,5 +3,5 @@ import java.rmi.*;
 public interface ReceiveMessageInterface extends Remote
 
 {
-	void receiveMessage(String x) throws RemoteException;
+	String receiveMessage(int opcao, int id, int nota) throws RemoteException;
 }
