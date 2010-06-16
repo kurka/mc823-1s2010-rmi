@@ -6,7 +6,7 @@ public class RmiClient
 {
     static public void main(String args[])
     {
-       ReceiveMessageInterface rmiServer;
+       cinemaInterface rmiServer;
        Registry registry;
        String serverAddress=args[0];
        String serverPort=args[1];
@@ -20,9 +20,9 @@ public class RmiClient
            );
            // look up the remote object
            rmiServer=
-              (ReceiveMessageInterface)(registry.lookup("rmiServer"));
+              (cinemaInterface)(registry.lookup("Servidor"));
            // call the remote method
-           rmiServer.receiveMessage(text);
+           System.out.println(rmiServer.consulta(1, 2, 3));
        }
        catch(RemoteException e){
            e.printStackTrace();
