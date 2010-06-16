@@ -17,32 +17,32 @@ implements cinemaInterface
     private static final String userName = "rodrigo_yasuda";
     private static final String password = "teste123";
     private static final String url = "jdbc:mysql://mysql.tolstenko.net:3306/rodrigo_yasuda?useUnicode=yes&characterEncoding=UTF-8&user=" + userName + "&password=" + password;
-
-    public String TodosDados(int opcao, int id, int nota)
-    {
-    Connection conn = null;
-    try {
-      /* Conexao com servidor MySQL */
-      Class.forName ("com.mysql.jdbc.Driver").newInstance();
-      conn = DriverManager.getConnection(url);
-      //System.out.println("Connected to the database");
-      conn.close();
-      //System.out.println("Disconnected from database");
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      System.err.println ("Cannot connect to database server");
-    }
-    finally {
-      if (conn != null)
-      {
-        try {
-          conn.close ();
-          //System.out.println ("Database connection terminated");
-        } catch (Exception e) { /* ignore close errors */ }
-      }
-    }
     
+    public String TodosDados()
+    {
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        //System.out.println("Connected to the database");
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return "bodega";
     }
 
     public String consulta(int opcao, int id, int nota) throws RemoteException
@@ -57,7 +57,8 @@ implements cinemaInterface
       switch(opcao)
       {
         case 1:
-          resposta = "Todos filmes";
+          resposta = TodosDados();
+          resposta = "Todos filmes" + "\n";
           break;
         default:
           resposta = "Opcao incorreta";
@@ -68,7 +69,7 @@ implements cinemaInterface
       /* Termino do tempo do servidor aqui */
       long end = System.nanoTime();
       double dif = (end - start)/1000000000F;
-      resposta = resposta + "SERVERTIME\t" + dif;
+      resposta = resposta + "SERVERTIME\t" + dif + "\n";
       System.out.println(resposta);
     
       return resposta;
