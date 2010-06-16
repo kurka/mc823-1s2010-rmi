@@ -6,18 +6,12 @@ import java.net.*;
  
 
 public class RmiServer extends java.rmi.server.UnicastRemoteObject
-
 implements ReceiveMessageInterface
-
 {
     int      thisPort = 50000;
     String   thisAddress;
     Registry registry;    // rmi registry for lookup the remote objects.
-
- 
-
     // This method is called from the remote client by the RMI.
-
     // This is the implementation of the “ReceiveMessageInterface”.
 
     public String receiveMessage(int opcao, int id, int nota) throws RemoteException
@@ -40,7 +34,7 @@ implements ReceiveMessageInterface
         try{
         // create the registry and bind the name and object.
         registry = LocateRegistry.createRegistry( thisPort );
-            registry.rebind("rmiServer", this);
+            registry.rebind("Servidor", this);
         }
         catch(RemoteException e){
         throw e;
