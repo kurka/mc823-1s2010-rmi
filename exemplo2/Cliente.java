@@ -82,26 +82,30 @@ public class Cliente {
 			}
 
 
-			try{
-				// pega o “registry”
-				registry=LocateRegistry.getRegistry(
-						serverAddress, serverPort
-						);
-				// encontra o objeto remoto
-				servidor=
-					(cinemaInterface)(registry.lookup("Servidor"));
-				// envia e processa requisicao
-				retorno = servidor.consulta(opcao, id, nota);
-			}
-			catch(RemoteException e){
-				e.printStackTrace();
-			}
-			catch(NotBoundException e){
-				e.printStackTrace();
-			}
+			// pega o “registry”
+			registry=LocateRegistry.getRegistry(
+					serverAddress, serverPort
+					);
+			// encontra o objeto remoto
+			servidor=
+				(cinemaInterface)(registry.lookup("Servidor"));
+
+			/* Marca inicio do tempo do cliente aqui*/
+			long start = System.nanoTime(); 
+
+			// envia e processa requisicao
+			retorno = servidor.consulta(opcao, id, nota);
+
+			/* Terminar tempo do cliente aqui (apos receber resposta da requisicao)*/
+			long end = System.nanoTime();
+				
 
 			System.out.println("Recebi: " + retorno);
         
+			
+			/* Imprime tempo do cliente */
+			double dif = (end-start)/1000000000F;
+			System.out.println("TOTALTIME\t" + dif);
 		
 		} catch (Exception e) {
             System.err.println("Cliente exception:");
