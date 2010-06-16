@@ -76,6 +76,243 @@ implements cinemaInterface
       return resposta + "\n";
     }
 
+    private static String UmFilme(int id)
+    {
+      String resposta = "";
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        try
+        {
+          rs = stmt.executeQuery("SELECT * from movies WHERE id=" + id);
+          if(rs.next()){
+            resposta += "\n\n********** FILME ID " + rs.getString("id") + " *********";
+            resposta += "\nTitulo: " + rs.getString("title");
+            resposta += "\nSinopse: " + rs.getString("plot");
+            resposta += "\nDiretor: " + rs.getString("director");
+            resposta += "\nEscritor: " + rs.getString("writer");
+            resposta += "\nData de Estreia: " + rs.getString("releasedate");
+            resposta += "\nData de Estreia no Brasil: " + rs.getString("releasedatebr");
+            resposta += "\nDuracao: " + rs.getString("runtime") + " minutos";
+            resposta += "\nVotos: " + rs.getString("ratevotes");
+            if (rs.getInt("ratevotes") > 0)
+            {
+              double media = rs.getInt("ratesum") / (double)rs.getInt("ratevotes");
+              resposta += "\nNota media: " + media;
+            }
+            else
+              resposta += "\nNota media: 0.0";
+            resposta += "\nSessoes: " + rs.getString("session");
+          }//end while loop
+
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return resposta + "\n";
+    }
+
+    private static String TodosTitulos()
+    {
+      String resposta = "";
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        try
+        {
+          rs = stmt.executeQuery("SELECT * from movies");
+          while(rs.next()){
+            resposta += "\n\n********** FILME ID " + rs.getString("id") + " *********";
+            resposta += "\nTitulo: " + rs.getString("title");
+          }//end while loop
+
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return resposta + "\n";
+    }
+
+    private static String UmaSinopse(int id)
+    {
+      String resposta = "";
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        try
+        {
+          rs = stmt.executeQuery("SELECT * from movies WHERE id=" + id);
+          if(rs.next()){
+            resposta += "\n\n********** FILME ID " + rs.getString("id") + " *********";
+            resposta += "\nTitulo: " + rs.getString("title");
+            resposta += "\nSinopse: " + rs.getString("plot");
+          }//end while loop
+
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return resposta + "\n";
+    }
+
+    private static String DarNota(int id, int nota)
+    {
+      String resposta = "";
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        
+        Statement stmt;
+        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        try
+        {
+          stmt.executeUpdate("UPDATE movies SET ratevotes=ratevotes+1, ratesum=ratesum+" + nota + " WHERE id=" + id);
+          resposta = "\nNota computada.";
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return resposta + "\n";
+    }
+
+
+    private static String NotaMedia(int id)
+    {
+      String resposta = "";
+      Connection conn = null;
+      try {
+        /* Conexao com servidor MySQL */
+        Class.forName ("com.mysql.jdbc.Driver").newInstance();
+        conn = DriverManager.getConnection(url);
+        
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        try
+        {
+          rs = stmt.executeQuery("SELECT * from movies WHERE id=" + id);
+          if(rs.next()){
+            resposta += "\n\n********** FILME ID " + rs.getString("id") + " *********";
+            resposta += "\nTitulo: " + rs.getString("title");
+            resposta += "\nVotos: " + rs.getString("ratevotes");
+            if (rs.getInt("ratevotes") > 0)
+            {
+              double media = rs.getInt("ratesum") / (double)rs.getInt("ratevotes");
+              resposta += "\nNota media: " + media;
+            }
+            else
+              resposta += "\nNota media: 0.0";
+          }//end while loop
+
+        }catch(Exception e)
+        {
+          e.printStackTrace();
+        }
+        conn.close();
+        //System.out.println("Disconnected from database");
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.err.println ("Cannot connect to database server");
+      }
+      finally {
+        if (conn != null)
+        {
+          try {
+            conn.close ();
+            //System.out.println ("Database connection terminated");
+          } catch (Exception e) { /* ignore close errors */ }
+        }
+      }
+      return resposta + "\n";
+    }
+
+
+
     public String consulta(int opcao, int id, int nota) throws RemoteException
     {
       /* Inicio do tempo do servidor aqui */
@@ -90,8 +327,23 @@ implements cinemaInterface
         case 1:
           resposta = TodosDados();
           break;
+        case 2:
+          resposta = UmFilme(id);
+          break;
+        case 3:
+          resposta = TodosTitulos();
+          break;
+        case 4:
+          resposta = UmaSinopse(id);
+          break;
+        case 5:
+          resposta = DarNota(id, nota);
+          break;
+        case 6:
+          resposta = NotaMedia(id);
+          break;
         default:
-          resposta = "Opcao incorreta";
+          resposta = "\nOpcao incorreta\n";
           break;
       }
       System.out.println(opcao);
