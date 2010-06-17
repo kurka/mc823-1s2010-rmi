@@ -100,7 +100,7 @@ public class Cliente {
 			long end = System.nanoTime();
 				
 
-			System.out.println("Recebi: " + retorno);
+			System.out.println(retorno);
         
 			
 			/* Imprime tempo do cliente */
